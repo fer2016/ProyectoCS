@@ -6,14 +6,14 @@
     <h:head>
         <title> Registro de Actividades</title>
     </h:head>
-    <h:body >
+    <h:body onload="#{login.redireccionarIndex()}">
         
           <h:form >
             <p:menubar  >
                 <p:submenu  label="Inicio" >
                     <p:submenu label="Actividad">
                         <p:menuitem value="Registrar Actividad" />                
-                        <p:menuitem value="Visualizar Actividades" />  
+                        <p:menuitem value="Visualizar Actividades"  action="Start3.xhtml" />  
                     </p:submenu>
                     
                     <p:submenu label="Publicación">
@@ -35,7 +35,7 @@
                 
                 <p:submenu label="Salir">
                     
-                    <p:menuitem  value="Logout" actionListener="index.xhtml"  />
+                    <p:menuitem  value="Logout" actionListener="#{login.logout()}"  />
                 </p:submenu>
                             
             </p:menubar>
@@ -63,13 +63,10 @@
 
                               <h:outputText value="Imagen: " />
                               <p:inputText value="#{actividad.imagen}" />
-
-                              <p:commandButton value="Guardar" title="Guardar"  icon="ui-icon-check"
-                                               action="#{actividad.guardarActividad()}" 
-                                               actionListener="#{actividad.showMessage()}"    >
-                              </p:commandButton>
-                              
-
+                         
+                             <p:commandButton value="Guardar" title="Guardar" icon="ui-icon-check" 
+                                              action ="#{actividad.guardarActividad()}" actionListener="#{actividad.showMessage()}"/>
+                               
                           </h:panelGrid>
                       </p:panel>
                   </p:tab>                                     

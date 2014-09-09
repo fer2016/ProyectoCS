@@ -1,0 +1,160 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:h="http://xmlns.jcp.org/jsf/html"
+       xmlns:p="http://primefaces.org/ui"
+       xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head >
+        <title> Visualizacion de Actividades</title>
+    </h:head>
+    <h:body  onload="#{login.redireccionarIndex()}" >
+
+        <script type="text/javascript">
+            function handleDrop(event, ui) {
+                var droppedCar = ui.draggable;
+
+                droppedCar.fadeOut('fast');
+            }
+        </script>
+
+
+        <h:form id="formActividad">
+            <p:menubar  >
+                <p:submenu  label="Inicio" >
+                    <p:submenu label="Actividad">
+                        <p:menuitem value="Registrar Actividad" action="Start.xhtml" />                
+                        <p:menuitem value="Visualizar Actividades" />  
+                    </p:submenu>
+
+                    <p:submenu label="Publicación">
+                        <p:menuitem value="Registrar Publicación" action="Start2.xhtml" />                
+                        <p:menuitem value="Visualizar Publicaciones" />  
+                    </p:submenu>
+                </p:submenu>
+
+                <p:submenu  label="Ayuda">
+                    <p:menuitem value="Información"/>               
+                    <p:menuitem value="Crear usuario"/>  
+
+                </p:submenu>
+
+                <p:submenu  label="UVG">
+                    <p:menuitem value="Página UVG"  url="http://www.uvg.edu.gt"  />                  
+                </p:submenu>
+
+                <p:submenu label="Salir">                  
+                    <p:menuitem  value="Logout"  actionListener="#{login.logout()}"/>
+                </p:submenu>
+
+            </p:menubar>
+
+
+
+
+
+            <p:tabView effect="pulsate"  effectDuration="normal"  style=" background-color:  darkseagreen">
+                <p:tab id="actividad" title="Actividad"   >
+                    <p:fieldset id="actividadDisp" legend="Actividades Disponibles">
+                        <p:dataTable id="actividadesDisp" var="actividad" value="#{tablebean.activities}"  emptyMessage="No hay actividades">
+                            <p:column style="width:20px">
+                                <h:outputText id="dragIcon" styleClass="ui-icon ui-icon-arrow-4" />
+                                <p:draggable  for="dragIcon" revert="true" helper="clone"/>
+                            </p:column>
+
+                            <p:column headerText="Nombre">
+                                <h:outputText value="#{actividad.nombre}" />
+                            </p:column>
+
+                            <p:column headerText="Tipo">
+                                <h:outputText value="#{actividad.tipo}" />
+                            </p:column>
+
+                            <p:column headerText="Fecha">
+                                <h:outputText value="#{actividad.fecha}" />
+                            </p:column>
+
+                            <p:column headerText="Personas involucradas">
+                                <h:outputText value="#{actividad.personas}" />
+                            </p:column>
+
+                            <p:column headerText="Detalle">
+                                <h:outputText value="#{actividad.detalle}" />
+                            </p:column>
+
+                            <p:column headerText="Imagen">
+                                <h:outputText value="#{actividad.imagen}" />
+                            </p:column>
+                        </p:dataTable>
+                    </p:fieldset>
+
+                    <p:fieldset id="actSeleccionadas" legend="Actividades Seleccionadas" style="margin-top:20px">
+                        <p:outputPanel id="dropArea">
+                            <h:outputText value="!Arrastre aquí las actividades!"  style="font-size:24px;" />
+                            <p:dataTable id="selectedActivitiesTable" var="actividad" value="#{tablebean.droppedActivities}" >
+                                <p:column headerText="Nombre">
+                                    <h:outputText value="#{actividad.nombre}" />
+                                </p:column>
+
+                                <p:column headerText="Tipo">
+                                    <h:outputText value="#{actividad.tipo}" />
+                                </p:column>
+
+                                <p:column headerText="Fecha">
+                                    <h:outputText value="#{actividad.fecha}" />
+                                </p:column>
+
+                                <p:column headerText="Personas involucradas">
+                                    <h:outputText value="#{actividad.personas}" />
+                                </p:column>
+
+                                <p:column headerText="Detalle">
+                                    <h:outputText value="#{actividad.detalle}" />
+                                </p:column>
+
+                                <p:column headerText="Imagen">
+                                    <h:outputText value="#{actividad.imagen}" />
+                                </p:column>
+                                <p:column style="width:32px">
+                                    <p:commandButton update="formActividad:display" oncomplete="PF('activityDialog').show()" icon="ui-icon-search">
+                                        <f:setPropertyActionListener value="#{actividad}" target="#{tablebean.selectedActivity}" />
+                                    </p:commandButton>
+                                </p:column>
+                            </p:dataTable>
+                        </p:outputPanel>
+                    </p:fieldset>
+
+                    <p:droppable for="actSeleccionadas" tolerance="touch" activeStyleClass="ui-state-highlight" datasource="actividadesDisp" onDrop="handleDrop">
+                        <p:ajax listener="#{tablebean.onActivityDropped}" update="dropArea actividadesDisp" />
+                    </p:droppable>
+
+                    <p:dialog header="Activity Detail" widgetVar="activityDialog" resizable="false" draggable="false"
+                              showEffect="fade" hideEffect="fade" modal="true">
+
+                        <h:panelGrid id="display" columns="2" cellpadding="4">
+
+                            <h:outputText value="Nombre:" />
+                            <h:outputText value="#{tablebean.selectedActivity.nombre}" style="font-weight:bold"/>
+
+                            <h:outputText value="Tipo:" />
+                            <h:outputText value="#{tablebean.selectedActivity.tipo}" style="font-weight:bold"/>
+
+                            <h:outputText value="Fecha:" />
+                            <h:outputText value="#{tablebean.selectedActivity.fecha}" style="font-weight:bold"/>
+
+                            <h:outputText value="Personas:" />
+                            <h:outputText value="#{tablebean.selectedActivity.personas}" style="font-weight:bold"/>
+
+                            <h:outputText value="Detalle:" />
+                            <h:outputText value="#{tablebean.selectedActivity.detalle}" style="font-weight:bold"/>
+
+                            <h:outputText value="Imagen:" />
+                            <h:outputText value="#{tablebean.selectedActivity.imagen}" style="font-weight:bold"/>
+                        </h:panelGrid>
+                    </p:dialog>
+                </p:tab>
+            </p:tabView>
+        </h:form>
+
+    </h:body>
+</html>
+

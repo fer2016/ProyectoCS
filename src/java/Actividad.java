@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.logging.Level;
@@ -5,6 +6,7 @@ import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import org.joseflores.db.MySQL;
 import org.primefaces.context.RequestContext;
 /**
@@ -13,7 +15,8 @@ import org.primefaces.context.RequestContext;
  */
 @ManagedBean(name="actividad")
 @RequestScoped
-public class Actividad {
+@SessionScoped
+public class Actividad implements Serializable{
    
     private MySQL m;
     private String nombre;
@@ -54,14 +57,6 @@ public class Actividad {
     }
     
     
-    
-    
-    
-    
-    
-    
-    
-
     public String getNombre() {
         return nombre;
     }

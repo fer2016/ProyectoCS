@@ -6,7 +6,7 @@
     <h:head>
         <title> Portal Actividades</title>
     </h:head>
-    <h:body onload="login.show();"  >
+    <h:body onload="login.show();#{login.verificarLogin()}"   >
         
         
              
@@ -15,7 +15,7 @@
         <center>
             
             <h:form>
-                <p:graphicImage value="resources/Uvg_logo.png"/>        
+                <p:graphicImage value="/resources/Uvg_logo.png" />        
             <p:panelGrid columns="2">
                 <p:outputLabel value="Usuario:"/>
                 <p:inputText value="#{login.usuarioIngresar}"   />
@@ -33,4 +33,3 @@
         
     </h:body>
 </html>
-
