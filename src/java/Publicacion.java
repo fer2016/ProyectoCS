@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.logging.Level;
@@ -14,7 +15,7 @@ import org.primefaces.context.RequestContext;
  */
 @ManagedBean(name="publicacion")
 @RequestScoped
-public class Publicacion {
+public class Publicacion implements Serializable{
     private MySQL mySQL;
     private String nombre;
     private String tipo;
@@ -28,8 +29,7 @@ public class Publicacion {
         mySQL.conectar();
     }
 
-    public Publicacion(MySQL mySQL, String nombre, String tipo, Date fecha, String personas, String detalle, String archivo) {
-        this.mySQL = mySQL;
+    public Publicacion(String nombre, String tipo, Date fecha, String personas, String detalle, String archivo) {
         this.nombre = nombre;
         this.tipo = tipo;
         this.fecha = fecha;
@@ -38,6 +38,7 @@ public class Publicacion {
         this.archivo = archivo;
     }
 
+    
     
     public void guardarPublicacion(){
         String agregarPublicacion = "INSERT into publicacion (nombre,tipo,fecha,personas,detalle,archivo) "
@@ -57,12 +58,7 @@ public class Publicacion {
     }
     
     
-    
-    
-    
-    
-    
-    
+
     public MySQL getMySQL() {
         return mySQL;
     }
@@ -119,8 +115,5 @@ public class Publicacion {
         this.archivo = archivo;
     }
     
-    
-    
-
     
 }

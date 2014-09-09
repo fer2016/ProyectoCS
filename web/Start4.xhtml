@@ -4,7 +4,7 @@
        xmlns:h="http://xmlns.jcp.org/jsf/html"
        xmlns:p="http://primefaces.org/ui">
     <h:head >
-        <title> Visualizacion de Actividades</title>
+        <title> Visualizacion de Publicaciones</title>
     </h:head>
     <h:body  onload="#{login.redireccionarIndex()}" >
 
@@ -17,17 +17,17 @@
         </script>
 
 
-        <h:form id="formActividad">
+        <h:form id="formPublicacion">
             <p:menubar>
                 <p:submenu  label="Inicio" >
                     <p:submenu label="Actividad">
                         <p:menuitem value="Registrar Actividad" action="Start.xhtml" />                
-                        <p:menuitem value="Visualizar Actividades" />  
+                        <p:menuitem value="Visualizar Actividades"  action="Start3.xhtml"/>  
                     </p:submenu>
 
                     <p:submenu label="Publicación">
                         <p:menuitem value="Registrar Publicación" action="Start2.xhtml" />                
-                        <p:menuitem value="Visualizar Publicaciones"  action="Start4.xhtml"/>  
+                        <p:menuitem value="Visualizar Publicaciones" />  
                     </p:submenu>
                 </p:submenu>
 
@@ -46,67 +46,67 @@
             </p:menubar>
 
                       
-            <p:tabView id="tabViewGeneral" effect="pulsate"  effectDuration="normal"  style=" background-color:  darkseagreen">
-                <p:tab id="actividad" title="Actividad"   >
-                    <p:fieldset id="actividadDisp" legend="Actividades Disponibles">
-                        <p:dataTable id="actividadesDisp" var="actividad" value="#{tablebean.activities}"  emptyMessage="No hay actividades">
+            <p:tabView id="tabViewGeneral" effect="pulsate"  effectDuration="normal"  style=" background-color: cadetblue">
+                <p:tab id="publicacion" title="Actividad"   >
+                    <p:fieldset id="publicacionDisp" legend="Publicaciones Disponibles">
+                        <p:dataTable id="publicacionesDisp" var="publicacion" value="#{tablebean2.publicaciones}"  emptyMessage="No hay publicaciones">
                             <p:column style="width:20px">
                                 <h:outputText id="dragIcon" styleClass="ui-icon ui-icon-arrow-4" />
                                 <p:draggable  for="dragIcon" revert="true" helper="clone"/>
                             </p:column>
 
                             <p:column headerText="Nombre">
-                                <h:outputText value="#{actividad.nombre}" />
+                                <h:outputText value="#{publicacion.nombre}" />
                             </p:column>
 
                             <p:column headerText="Tipo">
-                                <h:outputText value="#{actividad.tipo}" />
+                                <h:outputText value="#{publicacion.tipo}" />
                             </p:column>
 
                             <p:column headerText="Fecha">
-                                <h:outputText value="#{actividad.fecha}" />
+                                <h:outputText value="#{publicacion.fecha}" />
                             </p:column>
 
                             <p:column headerText="Personas involucradas">
-                                <h:outputText value="#{actividad.personas}" />
+                                <h:outputText value="#{publicacion.personas}" />
                             </p:column>
 
                             <p:column headerText="Detalle">
-                                <h:outputText value="#{actividad.detalle}" />
+                                <h:outputText value="#{publicacion.detalle}" />
                             </p:column>
 
-                            <p:column headerText="Imagen">
-                                <h:outputText value="#{actividad.imagen}" />
+                            <p:column headerText="Archivo por adjuntar">
+                                <h:outputText value="#{publicacion.archivo}" />
                             </p:column>
                         </p:dataTable>
                     </p:fieldset>
 
-                    <p:fieldset id="actSeleccionadas" legend="Actividades Seleccionadas" style="margin-top:20px">
+                    <p:fieldset id="pubSeleccionadas" legend="Publicaciones Seleccionadas" style="margin-top:20px">
                         <p:outputPanel id="dropArea" >         
-                            <p:dataTable id="selectedActivitiesTable" var="actividad" value="#{tablebean.droppedActivities}" 
-                                         emptyMessage="¡¡Arrastre aquí las actividades!!" >
+                            <p:dataTable id="selectedPublicacionesTable" var="publicacion" value="#{tablebean2.droppedPublicaciones}" 
+                                         emptyMessage="¡¡Arrastre aquí las publicaciones!!" >
                                 <p:column headerText="Nombre">
-                                    <h:outputText value="#{actividad.nombre}" />
+                                    <h:outputText value="#{publicacion.nombre}" />
                                 </p:column>
 
                                 <p:column headerText="Tipo">
-                                    <h:outputText value="#{actividad.tipo}" />
+                                    <h:outputText value="#{publicacion.tipo}" />
                                 </p:column>
 
                                 <p:column headerText="Fecha">
-                                    <h:outputText value="#{actividad.fecha}" />
+                                    <h:outputText value="#{publicacion.fecha}" />
                                 </p:column>
 
                                 <p:column headerText="Personas involucradas">
-                                    <h:outputText value="#{actividad.personas}" />
+                                    <h:outputText value="#{publicacion.personas}" />
                                 </p:column>
 
                                 <p:column headerText="Detalle">
-                                    <h:outputText value="#{actividad.detalle}" />
+                                    <h:outputText value="#{publicacion.detalle}" />
                                 </p:column>
 
-                                <p:column headerText="Imagen">
-                                    <h:outputText value="#{actividad.imagen}" />
+                                <p:column headerText="Archivo por adjuntar">
+                                    <h:outputText value="#{publicacion.archivo}" />
                                 </p:column>
                                 <p:column style="width:32px">
                                    
@@ -115,8 +115,8 @@
                         </p:outputPanel>
                     </p:fieldset>
 
-                      <p:droppable for="actSeleccionadas" tolerance="touch" activeStyleClass="ui-state-highlight" datasource="actividadesDisp" onDrop="handleDrop">
-                        <p:ajax listener="#{tablebean.onActivityDropped}" update="dropArea actividadesDisp" />
+                      <p:droppable for="pubSeleccionadas" tolerance="touch" activeStyleClass="ui-state-highlight" datasource="publicacionesDisp" onDrop="handleDrop">
+                          <p:ajax listener="#{tablebean2.onActivityDropped}" update="dropArea publicacionesDisp" />
                       </p:droppable>
                     
                 </p:tab>

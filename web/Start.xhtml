@@ -8,7 +8,7 @@
     </h:head>
     <h:body onload="#{login.redireccionarIndex()}">
         
-          <h:form >
+          <h:form  >
             <p:menubar  >
                 <p:submenu  label="Inicio" >
                     <p:submenu label="Actividad">
@@ -16,14 +16,14 @@
                         <p:menuitem value="Visualizar Actividades"  action="Start3.xhtml" />  
                     </p:submenu>
                     
-                    <p:submenu label="Publicación">
+                    <p:submenu label="Publicación" >
                         <p:menuitem value="Registrar Publicación" action="Start2.xhtml"/>                
-                        <p:menuitem value="Visualizar Publicaciones" />  
+                        <p:menuitem value="Visualizar Publicaciones" action="Start4.xhtml" />  
                     </p:submenu>
                 </p:submenu>
                        
                 <p:submenu  label="Ayuda">
-                    <p:menuitem value="Información"/>
+                    <p:menuitem value="Información" action="Start5.xhtml"/>
                 
                     <p:menuitem value="Crear usuario"/>  
                     
