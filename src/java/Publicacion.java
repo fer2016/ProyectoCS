@@ -6,7 +6,9 @@ import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import org.joseflores.db.MySQL;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import org.diegorivas.db.MySQL;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -52,8 +54,7 @@ public class Publicacion implements Serializable{
     }
     
      public void showMessage(){
-        RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, 
-        "Ingreso de Publicacion", "¡Se guardó la publicacion!"));
+       FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se guardó la publicación", "¡Se guardó correctamente!!"));
     
     }
     

@@ -22,12 +22,12 @@
                 <p:submenu  label="Inicio" >
                     <p:submenu label="Actividad">
                         <p:menuitem value="Registrar Actividad" action="Start.xhtml" />                
-                        <p:menuitem value="Visualizar Actividades" />  
+                        <p:menuitem value="Visualizar Actividades"  />  
                     </p:submenu>
 
                     <p:submenu label="Publicación">
                         <p:menuitem value="Registrar Publicación" action="Start2.xhtml" />                
-                        <p:menuitem value="Visualizar Publicaciones"  action="Start4.xhtml"/>  
+                        <p:menuitem value="Visualizar Publicaciones" action="Start4.xhtml" />  
                     </p:submenu>
                 </p:submenu>
 
@@ -46,17 +46,20 @@
             </p:menubar>
 
                       
-            <p:tabView id="tabViewGeneral" effect="pulsate"  effectDuration="normal"  style=" background-color:  darkseagreen">
+            <p:tabView id="tabViewGeneral" effect="pulsate"  effectDuration="normal"  style=" background-color: cadetblue">
                 <p:tab id="actividad" title="Actividad"   >
                     <p:fieldset id="actividadDisp" legend="Actividades Disponibles">
-                        <p:dataTable id="actividadesDisp" var="actividad" value="#{tablebean.activities}"  emptyMessage="No hay actividades">
+                        <p:dataTable id="actividadesDisp" var="actividad" value="#{tablebean.activities}"  emptyMessage="No hay publicaciones">
                             <p:column style="width:20px">
                                 <h:outputText id="dragIcon" styleClass="ui-icon ui-icon-arrow-4" />
                                 <p:draggable  for="dragIcon" revert="true" helper="clone"/>
                             </p:column>
 
                             <p:column headerText="Nombre">
-                                <h:outputText value="#{actividad.nombre}" />
+                                <h:outputText value="#{actividad.nombre}"  />
+                                
+                                 
+                               
                             </p:column>
 
                             <p:column headerText="Tipo">
@@ -75,7 +78,7 @@
                                 <h:outputText value="#{actividad.detalle}" />
                             </p:column>
 
-                            <p:column headerText="Imagen">
+                            <p:column headerText="Archivo por adjuntar">
                                 <h:outputText value="#{actividad.imagen}" />
                             </p:column>
                         </p:dataTable>
@@ -83,7 +86,7 @@
 
                     <p:fieldset id="actSeleccionadas" legend="Actividades Seleccionadas" style="margin-top:20px">
                         <p:outputPanel id="dropArea" >         
-                            <p:dataTable id="selectedActivitiesTable" var="actividad" value="#{tablebean.droppedActivities}" 
+                            <p:dataTable id="selectedActividadesTable" var="actividad" value="#{tablebean.droppedActivities}" 
                                          emptyMessage="¡¡Arrastre aquí las actividades!!" >
                                 <p:column headerText="Nombre">
                                     <h:outputText value="#{actividad.nombre}" />
@@ -105,7 +108,7 @@
                                     <h:outputText value="#{actividad.detalle}" />
                                 </p:column>
 
-                                <p:column headerText="Imagen">
+                                <p:column headerText="Archivo por adjuntar">
                                     <h:outputText value="#{actividad.imagen}" />
                                 </p:column>
                                 <p:column style="width:32px">
@@ -116,11 +119,13 @@
                     </p:fieldset>
 
                       <p:droppable for="actSeleccionadas" tolerance="touch" activeStyleClass="ui-state-highlight" datasource="actividadesDisp" onDrop="handleDrop">
-                        <p:ajax listener="#{tablebean.onActivityDropped}" update="dropArea actividadesDisp" />
+                          <p:ajax listener="#{tablebean.onActivityDropped}" update="dropArea actividadesDisp"  />
                       </p:droppable>
                     
                 </p:tab>
             </p:tabView>
+            
+            <p:commandButton value="Generar Reporte " actionListener="#{tablebean.generarPDF}" ajax="false" style="background: seagreen"  ></p:commandButton>
         </h:form>
     </h:body>
 </html>

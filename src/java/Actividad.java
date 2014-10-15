@@ -7,15 +7,18 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
-import org.joseflores.db.MySQL;
+import javax.faces.context.FacesContext;
+import org.diegorivas.db.MySQL;
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 /**
  *
  * @author fer
  */
 @ManagedBean(name="actividad")
-@RequestScoped
 @SessionScoped
+
 public class Actividad implements Serializable{
    
     private MySQL m;
@@ -25,6 +28,8 @@ public class Actividad implements Serializable{
     private String personas;  
     private String detalle;
     private String imagen;
+    private UploadedFile f;
+ 
     
     public Actividad() {
         m= new MySQL("localhost","root","",3306,"registro");
@@ -52,9 +57,24 @@ public class Actividad implements Serializable{
     }
     
     public void showMessage(){
-        RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, "Ingreso de Actividad", "¡Se guardó la actividad!"));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Ingreso de Actividad", "¡Se guardó la actividad!"));
      
     }
+    
+   
+    public UploadedFile getF() {
+        return f;
+    }
+
+    public void setF(UploadedFile f) {
+        this.f = f;
+    }
+    
+    public void handleFile(FileUploadEvent event){
+        f=event.getFile();
+    }
+    
+    
     
     
     public String getNombre() {

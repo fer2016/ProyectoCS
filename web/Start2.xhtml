@@ -44,25 +44,25 @@
                         <p:messages />
                         <h:panelGrid columns="2"  >
                             <h:outputText value="Nombre: " />
-                            <p:inputText value="#{publicacion.nombre}" />
+                            <p:inputText value="#{publicacion.nombre}" required="true"  requiredMessage="Ingrese nombre" />
 
                             <h:outputText value="Tipo: " />
-                            <p:inputText value="#{publicacion.tipo}" />
+                            <p:inputText value="#{publicacion.tipo}" required="true"  requiredMessage="Ingrese tipo" />
 
                             <h:outputText value="Fecha: " />
-                            <p:calendar  value="#{publicacion.fecha}"  effect="fold"></p:calendar>
+                            <p:calendar  value="#{publicacion.fecha}"  effect="fold" required="true"  requiredMessage="Ingrese fecha" ></p:calendar>
 
                             <h:outputText value="Personas involucradas: " />
-                            <p:inputText value="#{publicacion.personas}" />
+                            <p:inputText value="#{publicacion.personas}" required="true"  requiredMessage="Ingrese personas" />
 
 
                             <h:outputText value="Detalle de la Publicacion: " style=" "   />
-                            <p:inputTextarea value="#{publicacion.detalle}" style="width: 225px"  autoResize="false" />
+                            <p:inputTextarea value="#{publicacion.detalle}" style="width: 225px"  autoResize="false" required="true"  requiredMessage="Ingrese detalle" />
 
                             <h:outputText value="Adjuntar archivo: " />
-                            <p:inputText value="#{publicacion.archivo}" />
+                            <p:inputText value="#{publicacion.archivo}" required="true"  requiredMessage="Ingrese archivo" />
 
-                            <p:commandButton value="Guardar" title="Guardar" icon="ui-icon-check" 
+                            <p:commandButton value="Guardar" title="Guardar" icon="ui-icon-check" update="growl" ajax="false"
                                              action ="#{publicacion.guardarPublicacion()}" actionListener="#{publicacion.showMessage()}"/>
 
                         </h:panelGrid>
