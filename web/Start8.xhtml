@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title> Registro de Actividades</title>
+    </h:head>
+    <h:body onload="#{login.redireccionarIndex()}">
+        
+        <h:form id="form" >
+            <p:menubar  >
+                <p:submenu  label="Inicio" >
+                    <p:submenu label="Actividad">
+                        <p:menuitem value="Registrar Actividad"  />                
+                        <p:menuitem value="Visualizar Actividades"  action="Start9.xhtml" />  
+                    </p:submenu>
+                    
+                    <p:submenu label="Publicación">
+                        <p:menuitem value="Registrar Publicación" action="Start12.xhtml"/>                
+                        <p:menuitem value="Visualizar Publicaciones" action="Start10.xhtml" />  
+                    </p:submenu>
+                </p:submenu>
+                       
+                <p:submenu  label="Ayuda">
+                    <p:menuitem value="Información" action="Start5.xhtml"/>
+                
+                    <p:menuitem value="Crear usuario"/>  
+                    
+                </p:submenu>
+                
+                <p:submenu  label="UVG">
+                    <p:menuitem value="Página UVG" url="http://www.uvg.edu.gt"  />                  
+                </p:submenu>
+                
+                <p:submenu label="Salir">
+                    
+                    <p:menuitem  value="Logout" actionListener="#{login.logout()}"  />
+                </p:submenu>
+                            
+            </p:menubar>
+        </h:form>
+        <h:form enctype="multipart/form-data">  
+              <p:tabView effect="pulsate"  effectDuration="normal"  style=" background-color:  olivedrab "  >
+                  <p:tab id="actividad" title="Actividad"  >
+                      <p:panel header="Ingreso Actividad"  >
+                          <p:growl id="growl" showDetail="true"  sticky="true" />  
+                          <h:panelGrid  columns="2" >
+                              <h:outputText value="Nombre: " />
+                              <p:inputText value="#{actividad.nombre}"    required="true"      requiredMessage="Ingrese nombre"    maxlength="20" />
+                              
+                          
+
+                              <h:outputText value="Tipo: " />
+                              <p:inputText value="#{actividad.tipo}"  required="true"  requiredMessage="Ingrese tipo"  />
+
+                              <h:outputText value="Fecha: " />
+                              <p:calendar   value="#{actividad.fecha}"  effect="fold" required="true"  requiredMessage="Ingrese fecha"  ></p:calendar>
+
+                              <h:outputText value="Personas involucradas: " />
+                              <p:inputText value="#{actividad.personas}"  required="true"  requiredMessage="Ingrese personas"  />
+                                                   
+                              <h:outputText value="Detalle de la Actividad: " style=" "   />
+                              <p:inputTextarea value="#{actividad.detalle}" style="width: 184px"  autoResize="false"   required="true"  requiredMessage="Ingrese detalle" />
+
+                              <h:outputText value="Adjuntar Imagen :"   />
+                              <p:fileUpload   disabled="false" auto="true"  mode="advanced"  dragDropSupport="true" multiple="true" 
+                                              allowTypes="/(\.|\/)(gif|jpg|png)$/" fileUploadListener="#{actividad.handleFile}"></p:fileUpload>
+                                                        
+               
+                          </h:panelGrid>
+                          
+                          <p:commandButton value="Guardar" title="Guardar" icon="ui-icon-check"  ajax="false"
+                                           action ="#{actividad.guardarActividad()}"  update="growl"  actionListener="#{actividad.showMessage()}">
+                         
+                          </p:commandButton>
+                      </p:panel>
+                      
+                  </p:tab>              
+              </p:tabView>       
+          </h:form>                       
+    </h:body>
+</html>
+

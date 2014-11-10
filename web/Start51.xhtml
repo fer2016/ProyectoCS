@@ -1,0 +1,145 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:h="http://xmlns.jcp.org/jsf/html"
+       xmlns:p="http://primefaces.org/ui">
+    <h:head >
+        <title> Creacion de usuarios</title>
+    </h:head>
+    <h:body  onload="#{login.redireccionarIndex()}" >
+
+        <script type="text/javascript">
+            function handleDrop(event, ui) {
+                var droppedCar = ui.draggable;
+
+                droppedCar.fadeOut('fast');
+            }
+        </script>
+
+
+        <h:form id="formUsuarios">
+            <p:menubar>
+                <p:submenu  label="Inicio" >
+                    <p:submenu label="Actividad">
+                        <p:menuitem value="Registrar Actividad" action="Start.xhtml" />                
+                        <p:menuitem value="Visualizar Actividades"  action="Start3.xhtml"/>  
+                    </p:submenu>
+
+                    <p:submenu label="Publicación">
+                        <p:menuitem value="Registrar Publicación" action="Start2.xhtml" />                
+                        <p:menuitem value="Visualizar Publicaciones" action="Start4.xhtml" />  
+                    </p:submenu>
+                </p:submenu>
+
+                <p:submenu  label="Ayuda">
+                    <p:menuitem value="Información" action="Start5.xhtml"/>               
+                    <p:menuitem value="Crear usuario"/> 
+                </p:submenu>
+
+                <p:submenu  label="UVG">
+                    <p:menuitem value="Página UVG"  url="http://www.uvg.edu.gt"  />                  
+                </p:submenu>
+
+                <p:submenu  label="Gestión de Usuarios">
+                    <p:menuitem value="Crear usuarios" />                  
+                </p:submenu>
+
+                <p:submenu label="Salir">                  
+                    <p:menuitem  value="Logout"  actionListener="#{login.logout()}"/>
+                </p:submenu>
+            </p:menubar>
+            
+            
+             <h:form enctype="multipart/form-data">  
+              <p:tabView effect="pulsate"  effectDuration="normal"  style=" background-color:  cadetBlue "  >
+                  <p:tab id="actividad" title="Creación de Usuarios"  >
+                      <p:panel header="Datos del Usuario"  >
+                          <p:growl id="growl" showDetail="true"  sticky="true" />  
+                          <h:panelGrid  columns="2" >
+                              <h:outputText value="Nombre: " />
+                              <p:inputText value="#{usuario.userName}"    required="true"      requiredMessage="Ingrese nombre"    maxlength="20" />
+
+                              <h:outputText value="Password: " />
+                              <p:inputText value="#{usuario.password}"  required="true"  requiredMessage="Ingrese password"  />
+
+                              <h:outputText value="Tipo de Usuario: " />
+                              <p:inputText value="#{usuario.tipo}"  required="true"  requiredMessage="Ingrese tipo de usuario"  />
+
+                                     
+                          </h:panelGrid>
+                          
+                          <p:commandButton value="Guardar" title="Guardar" icon="ui-icon-check"  ajax="false"
+                                           action ="#{usuario.guardarUsuario()}"  update="growl"  actionListener="#{usuario.showMessage()}">
+                         
+                          </p:commandButton>
+                      </p:panel>
+                      
+                  </p:tab>              
+              </p:tabView>       
+          </h:form>                    
+            
+         
+
+            <p:tabView id="tabViewGeneral" effect="pulsate"  effectDuration="normal"  style=" background-color: cadetblue">
+                <p:tab id="usuarios" title="Eliminar Usuarios"   >
+                    <p:fieldset id="usuarioDisp" legend="Usuarios existentes">
+                        <p:dataTable id="usuariosDisp" var="usuarios" value="#{tablebean3.usuarios}"  emptyMessage="No hay usuarios">
+                            <p:column style="width:20px">
+                                <h:outputText id="dragIcon" styleClass="ui-icon ui-icon-arrow-4" />
+                                <p:draggable  for="dragIcon" revert="true"  helper="clone"/>
+                            </p:column>
+
+                            <p:column headerText="Nombre">
+                                <h:outputText value="#{usuarios.userName}"  /> 
+                            </p:column>
+
+                            <p:column headerText="Password">
+                                <h:outputText value="#{usuarios.password}" />
+                            </p:column>
+
+                            <p:column headerText="Tipo de Usuario">
+                                <h:outputText value="#{usuarios.tipo}" />
+                            </p:column>
+
+                        </p:dataTable>
+                    </p:fieldset>
+
+                    <p:fieldset id="usuariosSeleccionados" legend="Usuarios Seleccionados" style="margin-top:20px"  >
+                        <p:outputPanel id="dropArea"  >         
+                            <p:dataTable id="selectedUsuariosTable" var="usuarios" value="#{tablebean3.droppedUsuarios}" 
+                                         emptyMessage="¡¡Arrastre aquí los Usuarios a eliminar!!"   >
+                                
+                                <p:column headerText="Nombre">
+                                    <h:outputText value="#{usuarios.userName}"  />
+                                </p:column>
+
+                                <p:column headerText="Password">
+                                    <h:outputText value="#{usuarios.password}" />
+                                </p:column>
+
+                                <p:column headerText="Tipo de Usuario">
+                                    <h:outputText value="#{usuarios.tipo}" />
+                                </p:column>
+                               
+                            </p:dataTable>
+                            
+                            <p:button value="Eliminar" onclick="#{tablebean3.eliminarUsuarios()}" ></p:button>
+                                              
+                            
+                        </p:outputPanel>
+                    </p:fieldset>
+                    
+                                 
+                    <p:droppable  for="usuariosSeleccionados" tolerance="touch" activeStyleClass="ui-state-highlight" datasource="usuariosDisp" onDrop="handleDrop">
+                        <p:ajax listener="#{tablebean3.onActivityDropped}" update="dropArea usuariosDisp"  />
+                    </p:droppable>
+                    
+                  
+                                      
+                </p:tab>
+            </p:tabView>
+
+        </h:form>
+    </h:body>
+</html>
+

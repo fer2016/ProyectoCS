@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:h="http://xmlns.jcp.org/jsf/html"
+       xmlns:p="http://primefaces.org/ui">
+    <h:head >
+        <title> Visualizacion de Publicaciones</title>
+    </h:head>
+    <h:body  onload="#{login.redireccionarIndex()}" >
+
+        <script type="text/javascript">
+            function handleDrop(event, ui) {
+                var droppedCar = ui.draggable;
+
+                droppedCar.fadeOut('fast');
+            }
+        </script>
+
+
+        <h:form id="formPublicacion">
+            <p:menubar>
+                <p:submenu  label="Inicio" >
+                    <p:submenu label="Actividad">
+                        <p:menuitem value="Registrar Actividad" action="Start11.xhtml" />                
+                        <p:menuitem value="Visualizar Actividades"  action="Start9.xhtml"/>  
+                    </p:submenu>
+
+                    <p:submenu label="Publicación">
+                        <p:menuitem value="Registrar Publicación" action="Start12.xhtml" />                
+                        <p:menuitem value="Visualizar Publicaciones" />  
+                    </p:submenu>
+                </p:submenu>
+
+                <p:submenu  label="Ayuda">
+                    <p:menuitem value="Información" action="Start5.xhtml"/>               
+                    <p:menuitem value="Crear usuario"/> 
+                </p:submenu>
+
+                <p:submenu  label="UVG">
+                    <p:menuitem value="Página UVG"  url="http://www.uvg.edu.gt" disabled="true"  />                  
+                </p:submenu>
+
+                <p:submenu label="Salir">                  
+                    <p:menuitem  value="Logout"  actionListener="#{login.logout()}"/>
+                </p:submenu>
+            </p:menubar>
+
+
+            <p:tabView id="tabViewGeneral" effect="pulsate"  effectDuration="normal"  style=" background-color: cadetblue">
+                <p:tab id="publicacion" title="Publicación"   >
+                    <p:fieldset id="publicacionDisp" legend="Publicaciones Disponibles">
+                        <p:dataTable id="publicacionesDisp" var="publicacion" value="#{tablebean2.publicaciones}"  emptyMessage="No hay publicaciones">
+                            <p:column style="width:20px">
+                                <h:outputText id="dragIcon" styleClass="ui-icon ui-icon-arrow-4" />
+                                <p:draggable  for="dragIcon" revert="true"  helper="clone"/>
+                            </p:column>
+
+                            <p:column headerText="Nombre">
+                                <h:outputText value="#{publicacion.nombre}"  />
+
+
+
+                            </p:column>
+
+                            <p:column headerText="Tipo">
+                                <h:outputText value="#{publicacion.tipo}" />
+                            </p:column>
+
+                            <p:column headerText="Fecha">
+                                <h:outputText value="#{publicacion.fecha}" />
+                            </p:column>
+
+                            <p:column headerText="Personas involucradas">
+                                <h:outputText value="#{publicacion.personas}" />
+                            </p:column>
+
+                            <p:column headerText="Detalle">
+                                <h:outputText value="#{publicacion.detalle}" />
+                            </p:column>
+
+                            <p:column headerText="Archivo por adjuntar">
+                                <h:outputText value="#{publicacion.archivo}" />
+                            </p:column>
+                        </p:dataTable>
+                    </p:fieldset>
+
+                </p:tab>
+            </p:tabView>
+
+        </h:form>
+    </h:body>
+</html>
+

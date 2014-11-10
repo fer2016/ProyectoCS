@@ -39,6 +39,10 @@
                 <p:submenu  label="UVG">
                     <p:menuitem value="Página UVG"  url="http://www.uvg.edu.gt"  />                  
                 </p:submenu>
+                
+                <p:submenu  label="Gestión de Usuarios">
+                    <p:menuitem value="Crear usuarios" action="Start51.xhtml" />                  
+                </p:submenu>
 
                 <p:submenu label="Salir">                  
                     <p:menuitem  value="Logout"  actionListener="#{login.logout()}"/>
@@ -55,22 +59,22 @@
                                 <p:draggable  for="dragIcon" revert="true" helper="clone"/>
                             </p:column>
 
-                            <p:column headerText="Nombre">
+                            <p:column headerText="Nombre" filterBy="#{actividad.nombre}"   filterMatchMode="contains">
                                 <h:outputText value="#{actividad.nombre}"  />
                                 
                                  
                                
                             </p:column>
 
-                            <p:column headerText="Tipo">
+                            <p:column headerText="Tipo" filterBy="#{actividad.tipo}"   filterMatchMode="contains">
                                 <h:outputText value="#{actividad.tipo}" />
                             </p:column>
 
-                            <p:column headerText="Fecha">
+                            <p:column headerText="Fecha"  filterBy="#{actividad.fecha}"   filterMatchMode="contains">
                                 <h:outputText value="#{actividad.fecha}" />
                             </p:column>
 
-                            <p:column headerText="Personas involucradas">
+                            <p:column headerText="Personas involucradas"  filterBy="#{actividad.personas}"   filterMatchMode="contains" >
                                 <h:outputText value="#{actividad.personas}" />
                             </p:column>
 
@@ -124,8 +128,11 @@
                     
                 </p:tab>
             </p:tabView>
-            
-            <p:commandButton value="Generar Reporte " actionListener="#{tablebean.generarPDF}" ajax="false" style="background: seagreen"  ></p:commandButton>
+
+                <p:commandButton  style="background: orange" ajax="false" value="Generar Reporte en PDF" actionListener="#{tablebean.generarPDF}"></p:commandButton>
+                <p:commandButton  style="background: darkseagreen" ajax="false" value="Generar Reporte en EXCEL" actionListener="#{tablebean.generarExcel}"  ></p:commandButton>  
+                <p:commandButton style="background: dodgerblue"  ajax="false" value="Generar Reporte en WORD" actionListener="#{tablebean.generarWord}" ></p:commandButton>
+                       
         </h:form>
     </h:body>
 </html>

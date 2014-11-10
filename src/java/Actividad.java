@@ -1,15 +1,14 @@
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import org.diegorivas.db.MySQL;
-import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 /**
@@ -29,11 +28,15 @@ public class Actividad implements Serializable{
     private String detalle;
     private String imagen;
     private UploadedFile f;
- 
+    private ArrayList<String> a = new ArrayList();
+    private ArrayList<String> b = new ArrayList();
     
     public Actividad() {
         m= new MySQL("localhost","root","",3306,"registro");
         m.conectar();
+        b.add("algo1");
+        b.add("algo2");
+        a.add("pa");
     }
 
     public Actividad(String nombre, String tipo, Date fecha, String personas, String detalle, String imagen ){
@@ -73,10 +76,25 @@ public class Actividad implements Serializable{
     public void handleFile(FileUploadEvent event){
         f=event.getFile();
     }
+
+    public ArrayList<String> getB() {
+        return b;
+    }
+
+    public void setB(ArrayList<String> b) {
+        this.b = b;
+    }
+
+    public ArrayList<String> getA() {
+        return a;
+    }
+
+    public void setA(ArrayList<String> a) {
+        this.a = a;
+    }
     
     
-    
-    
+     
     public String getNombre() {
         return nombre;
     }

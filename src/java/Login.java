@@ -1,4 +1,3 @@
-
 import java.io.IOException;
 import java.sql.ResultSet;
 import javax.faces.application.FacesMessage;
@@ -18,6 +17,8 @@ public class Login {
     private String usuarioIngresar;
     private String passwordIngresar;
     private boolean verificador;
+    private String url;
+    private String m = "";
 
     public Login(String usuarioIngresar, String passwordIngresar) {
         this.usuarioIngresar = usuarioIngresar;
@@ -30,7 +31,8 @@ public class Login {
     public void acceder() {
         conexionMySQL = new MySQL("localhost", "root", "", 3306, "registro");
         conexionMySQL.conectar();
-        ResultSet resultado = conexionMySQL.consulta("SELECT user_name, password FROM usuario where user_name = '" + getUsuarioIngresar() + "'");
+        ResultSet resultado = conexionMySQL.consulta("SELECT user_name, password, tipo FROM usuario where user_name = '" + getUsuarioIngresar() + "'");
+        
         try {
             boolean acceso = false;
             while (resultado.next()) {
@@ -39,7 +41,25 @@ public class Login {
                 }
             }
             if (acceso) {
-                String url = "/ProyectoCS/faces/Start.xhtml";
+                ResultSet resultado2 = conexionMySQL.consulta("SELECT user_name, password, tipo FROM usuario where user_name = '" + getUsuarioIngresar() + "'");
+                while (resultado2.next()) {
+                    if (resultado2.getString("tipo").equals("decano")) {
+                         url = "/ProyectoCS/faces/Start.xhtml";
+                         m="decano";
+                        
+                    }
+                    else if(resultado2.getString("tipo").equals("visitante")){
+                         url = "/ProyectoCS/faces/Start6.xhtml";
+                         m="visitante";
+                    }
+                    else if(resultado2.getString("tipo").equals("student")){
+                        url = "/ProyectoCS/faces/Start8.xhtml";
+                        m="student";
+                    }
+                }
+                
+                
+            
                 FacesContext fc = FacesContext.getCurrentInstance();
                 ExternalContext ec = fc.getExternalContext();
                 try {
@@ -78,7 +98,14 @@ public class Login {
     }
 
     public void verificarLogin() {
-        String url = "/ProyectoCS/faces/Start.xhtml";
+        
+        if(m.equals("student")){
+             String url = "/ProyectoCS/faces/Start8.xhtml";
+        }
+        else if(m.equals("decano")||m.equals("visitante")){
+            String url = "/ProyectoCS/faces/Start.xhtml";
+        }
+       
         FacesContext fc = FacesContext.getCurrentInstance();
         ExternalContext ec = fc.getExternalContext();
         

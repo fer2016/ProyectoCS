@@ -17,10 +17,13 @@ import javax.faces.event.ActionEvent;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.export.ooxml.JRDocxExporter;
+import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
 import org.diegorivas.db.MySQL;
 import org.primefaces.event.DragDropEvent;
 
@@ -97,10 +100,40 @@ public class TableBean implements Serializable {
     public void generarPDF(ActionEvent actionEvent) throws JRException, IOException {
         init();
         HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-        httpServletResponse.addHeader("Content-disposition", "attachment; filename=file.pdf"); 
+        //httpServletResponse.addHeader("Content-disposition", "attachment; filename=file.pdf"); 
         FacesContext.getCurrentInstance().responseComplete();
         ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
         JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
+        servletOutputStream.flush();
+        servletOutputStream.close();
+        FacesContext.getCurrentInstance().responseComplete();
+    }
+    
+     public void generarExcel(ActionEvent actionEvent) throws JRException, IOException {
+        init();
+        HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        httpServletResponse.addHeader("Content-disposition", "attachment; filename=file.xlsx"); 
+        FacesContext.getCurrentInstance().responseComplete();
+        ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
+        JRXlsxExporter docsExporter = new JRXlsxExporter ();
+        docsExporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+        docsExporter.setParameter(JRExporterParameter.OUTPUT_STREAM, servletOutputStream);
+        docsExporter.exportReport();
+        servletOutputStream.flush();
+        servletOutputStream.close();
+        FacesContext.getCurrentInstance().responseComplete();
+    }
+    
+    public void generarWord(ActionEvent actionEvent) throws JRException, IOException {
+        init();
+        HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        httpServletResponse.addHeader("Content-disposition", "attachment; filename=file.docx"); 
+        FacesContext.getCurrentInstance().responseComplete();
+        ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
+        JRDocxExporter docsExporter = new JRDocxExporter();
+        docsExporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+        docsExporter.setParameter(JRExporterParameter.OUTPUT_STREAM, servletOutputStream);
+        docsExporter.exportReport();
         servletOutputStream.flush();
         servletOutputStream.close();
         FacesContext.getCurrentInstance().responseComplete();

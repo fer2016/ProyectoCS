@@ -5,7 +5,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title> Registro de Actividades</title>
+        <title> Registro de Intercambio</title>
     </h:head>
     <h:body onload="#{login.redireccionarIndex()}">
         
@@ -22,7 +22,7 @@
                         <p:menuitem value="Visualizar Publicaciones" action="Start4.xhtml" />  
                     </p:submenu>
                     
-                    <p:submenu label="Comision">
+                      <p:submenu label="Comision">
                         <p:menuitem value="Registrar Comisión" action="Comision.xhtml"/>                
                         <p:menuitem value="Visualizar Comisiones" action="Comision2.xhtml" />  
                     </p:submenu>
@@ -38,17 +38,17 @@
                     </p:submenu>
                     
                     <p:submenu label="Educacion Continua">
-                        <p:menuitem value="Registrar Educación Continua" action="EducacionContinua.xhtml"/>                
-                        <p:menuitem value="Visualizar educacion continua" action="EducacionContinua2.xhtml" />  
+                        <p:menuitem value="Registrar Educación Continua" action="Educacion.xhtml"/>                
+                        <p:menuitem value="Visualizar educacion continua" action="Educacion2.xhtml" />  
                     </p:submenu>
                     
                     <p:submenu label="Eventos">
-                        <p:menuitem value="Registrar evento" action="Eventos.xhtml"/>                
+                        <p:menuitem value="Registrar evento" action="Eventos.xhtml" />                
                         <p:menuitem value="Visualizar eventos" action="Eventos2.xhtml" />  
                     </p:submenu>
                     
                     <p:submenu label="Extension">
-                        <p:menuitem value="Registrar extension" action="Extension.xhtml"/>                
+                        <p:menuitem value="Registrar extension"  action="Extension.xhtml"/>                
                         <p:menuitem value="Visualizar extension" action="Extension2.xhtml" />  
                     </p:submenu>
                     
@@ -59,7 +59,7 @@
                     
                     
                       <p:submenu label="Intercambio">
-                        <p:menuitem value="Registrar intercambio" action="Intercambio.xhtml"/>                
+                        <p:menuitem value="Registrar intercambio" />                
                         <p:menuitem value="Visualizar intercambios" action="Intercambio2.xhtml" />  
                     </p:submenu>
                     
@@ -78,6 +78,7 @@
                         <p:menuitem value="Registrar Premio" action="Premio.xhtml"/>                
                         <p:menuitem value="Visualizar Premios" action="Premio2.xhtml" />  
                     </p:submenu>
+                    
                 </p:submenu>
                        
                 <p:submenu  label="Ayuda">
@@ -104,33 +105,44 @@
         </h:form>
         <h:form enctype="multipart/form-data">  
               <p:tabView effect="pulsate"  effectDuration="normal"  style=" background-color:  olivedrab "  >
-                  <p:tab id="actividad" title="Actividad"  >
-                      <p:panel header="Ingreso Actividad"  >
+                  <p:tab id="intercambio" title="Intercambio"  >
+                      <p:panel header="Ingreso de Intercambio/Capacitación"  >
                           <p:growl id="growl" showDetail="true"  sticky="true" />  
                           <h:panelGrid  columns="2" >
-                            
-                              <h:outputText value="Nombre: " />
-                              <p:inputText value="#{actividad.nombre}"  required="true"  requiredMessage="Ingrese nombre"  /> 
                               
-
-                            <p:outputLabel for="tipo" value="Tipo: "  />
-                            <p:selectOneMenu id="tipo" value="#{actividad.tipo}"     >
+                                  <p:outputLabel for="tipo" value="Tipo: "  />
+                            <p:selectOneMenu id="tipo" value="#{intercambio.tipo}"     >
                                
                                 <f:selectItem itemLabel="Tipo" itemValue="" noSelectionOption="true"   />
-                                <f:selectItems value="#{actividad.b}" />
+                                <f:selectItems value="#{intercambio.b}" />
                             </p:selectOneMenu>
                           
-
-                         
-
-                              <h:outputText value="Fecha: " />
-                              <p:calendar   value="#{actividad.fecha}"  effect="fold" required="true"  requiredMessage="Ingrese fecha"  ></p:calendar>
-
-                              <h:outputText value="Personas involucradas: " />
-                              <p:inputText value="#{actividad.personas}"  required="true"  requiredMessage="Ingrese personas"  />
+                              
+                               <h:outputText value="Personas asistentes / recipiendarias: " />
+                               <p:inputText value="#{intercambio.asistentes}"  required="true"  requiredMessage="Ingrese asistentes"  /> 
+                               
+                               <h:outputText value="Fecha: " />
+                               <p:calendar   value="#{intercambio.fecha}"  effect="fold" required="true"  requiredMessage="Ingrese fecha"  ></p:calendar>
+                                 
+                               <h:outputText value="Nombre del curso/intercambio/capacitación: " />
+                               <p:inputText value="#{intercambio.nombre}"  required="true"  requiredMessage="Ingrese nombre"  /> 
+                            
+                            
+                               <h:outputText value="País/Ciudad: " />
+                               <p:inputText value="#{intercambio.pais}"  required="true"  requiredMessage="Ingrese pais"  />
+                               
+                                 <h:outputText value="Sede/Lugar: " />
+                                 <p:inputText value="#{intercambio.sede}"  required="true"  requiredMessage="Ingrese sede"  />
+                               
+                                 <h:outputText value="Instituciones Organizadoras: " />
+                                 <p:inputText value="#{intercambio.institucion}"  required="true"  requiredMessage="Ingrese institucion"  />
+                               
+                                 <h:outputText value="Organización donante: " />
+                                 <p:inputText value="#{intercambio.donante}"  required="true"  requiredMessage="Ingrese organizacion"  />
+                            
                                                    
-                              <h:outputText value="Detalle de la Actividad: " style=" "   />
-                              <p:inputTextarea value="#{actividad.detalle}" style="width: 184px"  autoResize="false"   required="true"  requiredMessage="Ingrese detalle" />
+                              <h:outputText value="Detalle del Intercambio/Capacitacion: " style=" "   />
+                              <p:inputTextarea value="#{intercambio.detalle}" style="width: 184px"  autoResize="false"   required="true"  requiredMessage="Ingrese detalle" />
 
                               <h:outputText value="Adjuntar Imagen :"   />
                               <p:fileUpload   disabled="false" auto="true"  mode="advanced"  dragDropSupport="true" multiple="true" 
@@ -140,7 +152,7 @@
                           </h:panelGrid>
                           
                           <p:commandButton value="Guardar" title="Guardar" icon="ui-icon-check"  ajax="false"
-                                           action ="#{actividad.guardarActividad()}"  update="growl"  actionListener="#{actividad.showMessage()}">
+                                           action ="#{intercambio.guardarIntercambio()}"  update="growl"  actionListener="#{intercambio.showMessage()}">
                          
                           </p:commandButton>
                       </p:panel>

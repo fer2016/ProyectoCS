@@ -37,7 +37,11 @@
                 </p:submenu>
 
                 <p:submenu  label="UVG">
-                    <p:menuitem value="Página UVG"  url="http://www.uvg.edu.gt" disabled="true"  />                  
+                    <p:menuitem value="Página UVG"  url="http://www.uvg.edu.gt"  />                  
+                </p:submenu>
+                
+                 <p:submenu  label="Gestión de Usuarios">
+                    <p:menuitem value="Crear usuarios" action="Start51.xhtml" />                  
                 </p:submenu>
 
                 <p:submenu label="Salir">                  
@@ -45,32 +49,31 @@
                 </p:submenu>
             </p:menubar>
 
-                      
+
             <p:tabView id="tabViewGeneral" effect="pulsate"  effectDuration="normal"  style=" background-color: cadetblue">
-                <p:tab id="publicacion" title="Actividad"   >
+                <p:tab id="publicacion" title="Publicación"   >
                     <p:fieldset id="publicacionDisp" legend="Publicaciones Disponibles">
-                        <p:dataTable id="publicacionesDisp" var="publicacion" value="#{tablebean2.publicaciones}"  emptyMessage="No hay publicaciones">
+                        <p:dataTable id="publicacionesDisp" var="publicacion" value="#{tablebean2.publicaciones}"  emptyMessage="No hay publicaciones"
+                                    >
                             <p:column style="width:20px">
                                 <h:outputText id="dragIcon" styleClass="ui-icon ui-icon-arrow-4" />
                                 <p:draggable  for="dragIcon" revert="true"  helper="clone"/>
                             </p:column>
 
-                            <p:column headerText="Nombre">
+                            <p:column headerText="Nombre" filterBy="#{publicacion.nombre}" filterMatchMode="contains">
                                 <h:outputText value="#{publicacion.nombre}"  />
-                                
-                                 
-                               
+
                             </p:column>
 
-                            <p:column headerText="Tipo">
+                            <p:column headerText="Tipo" filterBy="#{publicacion.tipo}" filterMatchMode="contains">
                                 <h:outputText value="#{publicacion.tipo}" />
                             </p:column>
 
-                            <p:column headerText="Fecha">
+                            <p:column headerText="Fecha" filterBy="#{publicacion.fecha}" filterMatchMode="contains">
                                 <h:outputText value="#{publicacion.fecha}" />
                             </p:column>
 
-                            <p:column headerText="Personas involucradas">
+                            <p:column headerText="Personas involucradas" filterBy="#{publicacion.personas}" filterMatchMode="contains" >
                                 <h:outputText value="#{publicacion.personas}" />
                             </p:column>
 
@@ -111,21 +114,23 @@
                                 <p:column headerText="Archivo por adjuntar">
                                     <h:outputText value="#{publicacion.archivo}" />
                                 </p:column>
-                                <p:column style="width:32px">
-                                   
-                                </p:column>
+                              
                             </p:dataTable>
                         </p:outputPanel>
                     </p:fieldset>
 
-                      <p:droppable for="pubSeleccionadas" tolerance="touch" activeStyleClass="ui-state-highlight" datasource="publicacionesDisp" onDrop="handleDrop">
-                          <p:ajax listener="#{tablebean2.onActivityDropped}" update="dropArea publicacionesDisp"  />
-                      </p:droppable>
-                    
+                    <p:droppable for="pubSeleccionadas" tolerance="touch" activeStyleClass="ui-state-highlight" datasource="publicacionesDisp" onDrop="handleDrop">
+                        <p:ajax listener="#{tablebean2.onActivityDropped}" update="dropArea publicacionesDisp"  />
+                    </p:droppable>
+
                 </p:tab>
             </p:tabView>
+
             
-            <p:commandButton value="Generar Reporte " actionListener="#{tablebean2.generarPDF}" ajax="false"  style="background: cadetblue"></p:commandButton>
+            <p:commandButton  style="background: orange" ajax="false" value="Generar Reporte en PDF" actionListener="#{tablebean2.generarPDF}"></p:commandButton>
+            <p:commandButton  style="background: darkseagreen" ajax="false" value="Generar Reporte en EXCEL" actionListener="#{tablebean2.generarExcel}"  ></p:commandButton>  
+            <p:commandButton style="background: dodgerblue"  ajax="false" value="Generar Reporte en WORD" actionListener="#{tablebean2.generarWord}" ></p:commandButton>
+
         </h:form>
     </h:body>
 </html>
