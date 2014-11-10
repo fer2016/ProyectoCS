@@ -53,7 +53,7 @@ public class Invitado implements Serializable {
     
     
     public void guardarInvitado(){
-        String agregarInvitado = "INSERT into invitado (nombre,fecha,tema,pais,universidad,fulbright,patrocinador,trabajoCampo,estudiantes,imparteCurso,cursos,curriculum,detalle,imagen)"
+        String agregarInvitado = "INSERT into invitado (nombre,fecha,tema,pais,universidad,fulbright,patrocinador,trabajoCampo,estudiantes,imparteCursos,cursos,curriculum,detalle,imagen)"
             + "VALUES ('"+nombre+"','"+(fecha.getYear()+1900)+"/"+fecha.getMonth()+"/"+fecha.getDay()+"','"+tema+"','"+pais+"','"+universidad+"','"+fulbright+"','"+patrocinador
                 +"','"+trabajoCampo+"','"+estudiantes+"','"+imparteCurso+"','"+cursos+"','"+curriculum+"','"+detalle+"','"+imagen+"')";
         try {

@@ -13,7 +13,7 @@
             <p:menubar  >
                 <p:submenu  label="Inicio" >
                     <p:submenu label="Actividad">
-                        <p:menuitem value="Registrar Actividad" />                
+                        <p:menuitem value="Registrar Actividad"  action="Start.xhtml"/>                
                         <p:menuitem value="Visualizar Actividades"  action="Start3.xhtml" />  
                     </p:submenu>
                     
@@ -38,8 +38,8 @@
                     </p:submenu>
                     
                     <p:submenu label="Educacion Continua">
-                        <p:menuitem value="Registrar Educación Continua" action="Educacion.xhtml"/>                
-                        <p:menuitem value="Visualizar educacion continua" action="Educacion2.xhtml" />  
+                        <p:menuitem value="Registrar Educación Continua" action="EducacionContinua.xhtml"/>                
+                        <p:menuitem value="Visualizar educacion continua" action="EducacionContinua2.xhtml" />  
                     </p:submenu>
                     
                     <p:submenu label="Eventos">
@@ -106,36 +106,55 @@
         <h:form enctype="multipart/form-data">  
               <p:tabView effect="pulsate"  effectDuration="normal"  style=" background-color:  olivedrab "  >
                   <p:tab id="invitado" title="Invitado"  >
-                      <p:panel header="Ingreso de Premio"  >
+                      <p:panel header="Ingreso de Profesor/Investigador invitado"  >
                           <p:growl id="growl" showDetail="true"  sticky="true" />  
                           <h:panelGrid  columns="2" >
                                     
-                                <p:outputLabel for="tipo" value="Tipo: "  />
-                                <p:selectOneMenu id="tipo" value="#{premio.tipo}" required="true"   requiredMessage="Ingrese tipo"
-                                              style="width:150px"   >
-                               
-                                <f:selectItem itemLabel="Tipo" itemValue="" noSelectionOption="true"     />
-                                <f:selectItems value="#{premio.b}"   />
-                            </p:selectOneMenu>
                               
-                               <h:outputText value=": Recipiendario " />
-                               <p:inputText value="#{premio.recipiendario}"  required="true"  requiredMessage="Ingrese recipiendario"  /> 
+                               <h:outputText value=": Nombre " />
+                               <p:inputText value="#{invitado.nombre}"  required="true"  requiredMessage="Ingrese nombre"  /> 
                                
                                <h:outputText value="Fecha: " />
-                               <p:calendar   value="#{premio.fecha}"  effect="fold" required="true"  requiredMessage="Ingrese fecha"  ></p:calendar>
+                               <p:calendar   value="#{invitado.fecha}"  effect="fold" required="true"  requiredMessage="Ingrese fecha"  ></p:calendar>
                                  
-                               <h:outputText value="Nombre del premio: " />
-                               <p:inputText value="#{premio.nombrePremio}"  required="true"  requiredMessage="Ingrese nombre"  /> 
+                               <h:outputText value="Tema de Investigación: " />
+                               <p:inputText value="#{invitado.tema}"  required="true"  requiredMessage="Ingrese tema"  /> 
                             
                             
-                               <h:outputText value="Organización que otorga el premio: " />
-                               <p:inputText value="#{premio.organizacion}"  required="true"  requiredMessage="Ingrese organizacion"  />
+                               <h:outputText value="Pais de Origen: " />
+                               <p:inputText value="#{invitado.pais}"  required="true"  requiredMessage="Ingrese pais"  />
                                
+                                   
+                               <h:outputText value="Universidad/institucion de origen: " />
+                               <p:inputText value="#{invitado.universidad}"  required="true"  requiredMessage="Ingrese universidad"  /> 
                                
-                            
+                                   
+                               <h:outputText value="¿Financiado por fulbright?: " />
+                               <p:inputText value="#{invitado.fulbright}"  required="true"  requiredMessage="Ingrese fulbright"  /> 
+                               
+                                   
+                               <h:outputText value="Institucion Patrocinadora: " />
+                               <p:inputText value="#{invitado.patrocinador}"  required="true"  requiredMessage="Ingrese patrocinadora"  /> 
+                               
+                                   
+                               <h:outputText value="¿Dirigirá un trabajo de campo o investigación que involucre estudiantes? : " />
+                               <p:inputText value="#{invitado.trabajoCampo}"  required="true"  requiredMessage="Ingrese trabajo campo"  /> 
+                               
+                               <h:outputText value="Listado de estudiantes participantes: " />
+                               <p:inputText value="#{invitado.estudiantes}"  required="true"  requiredMessage="Ingrese estudiantes"  /> 
+                                  
+                               <h:outputText value="¿Impartirá un curso?: " />
+                               <p:inputText value="#{invitado.imparteCurso}"  required="true"  requiredMessage="Ingrese si imparte curso"  /> 
+                               
+                                <h:outputText value="Lista de Cursos a impartir: " />
+                                <p:inputText value="#{invitado.cursos}"  required="true"  requiredMessage="Ingrese cursos"  /> 
+
+                                  <h:outputText value="Curriculum Vitae: " />
+                                  <p:inputText value="#{invitado.curriculum}"  required="true"  requiredMessage="Ingrese CV"  /> 
+
                                                    
-                              <h:outputText value="Detalle del Intercambio/Capacitacion: " style=" "   />
-                              <p:inputTextarea value="#{premio.detalle}" style="width: 184px"  autoResize="false"   required="true"  requiredMessage="Ingrese detalle" />
+                              <h:outputText value="Detalle de Invitado: " style=" "   />
+                              <p:inputTextarea value="#{invitado.detalle}" style="width: 184px"  autoResize="false"   required="true"  requiredMessage="Ingrese detalle" />
 
                               <h:outputText value="Adjuntar Imagen :"   />
                               <p:fileUpload   disabled="false" auto="true"  mode="advanced"  dragDropSupport="true" multiple="true" 
@@ -145,7 +164,7 @@
                           </h:panelGrid>
                           
                           <p:commandButton value="Guardar" title="Guardar" icon="ui-icon-check"  ajax="false"
-                                           action ="#{premio.guardarPremio()}"  update="growl"  actionListener="#{premio.showMessage()}">
+                                           action ="#{invitado.guardarInvitado()}"  update="growl"  actionListener="#{invitado.showMessage()}">
                          
                           </p:commandButton>
                       </p:panel>

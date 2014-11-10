@@ -1,5 +1,7 @@
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,6 +15,7 @@ import org.diegorivas.db.MySQL;
 @RequestScoped
 public class Pasantia implements Serializable {
     private MySQL m;
+    private String tipo;
     private String nombreProyecto;
     private String nombreEncargado;
     private String nombreInstitucion;
@@ -22,13 +25,17 @@ public class Pasantia implements Serializable {
     private String temas;
     private String detalle;
     private String imagen;
+     private final String[] tipos= new String[] {"Trabajo de Campo","Pasantía","Práctica Profesional","Megaproyecto"}; 
+    private ArrayList<String> b = new ArrayList();
     
     public Pasantia() {
         m= new MySQL("localhost","root","",3306,"registro");
         m.conectar();
+        Collections.addAll(b, tipos);
     }
 
-    public Pasantia(String nombreProyecto, String nombreEncargado, String nombreInstitucion, String estudiantes, Date fecha, String cobertura, String temas, String detalle, String imagen) {
+    public Pasantia(String tipo, String nombreProyecto, String nombreEncargado, String nombreInstitucion, String estudiantes, Date fecha, String cobertura, String temas, String detalle, String imagen) {
+        this.tipo = tipo;
         this.nombreProyecto = nombreProyecto;
         this.nombreEncargado = nombreEncargado;
         this.nombreInstitucion = nombreInstitucion;
@@ -39,10 +46,12 @@ public class Pasantia implements Serializable {
         this.detalle = detalle;
         this.imagen = imagen;
     }
+
+   
     
     public void guardarPasantia(){
-        String agregarPasantia = "INSERT into pasantia (nombreProyecto,nombreEncargado,nombreInstitucion,estudiantes,fecha,cobertura,temas,detalle,imagen)"
-            + "VALUES ('"+nombreProyecto+"','"+ nombreEncargado+"','"+ nombreInstitucion+"','"+estudiantes+"','"+(fecha.getYear()+1900)+"/"+fecha.getMonth()+"/"+fecha.getDay()+"','"+cobertura+"','"+temas+"','"+detalle+"','"+imagen+"')";
+        String agregarPasantia = "INSERT into pasantia (tipo,nombreProyecto,nombreEncargado,nombreInstitucion,estudiantes,fecha,cobertura,temas,detalle,imagen)"
+            + "VALUES ('"+tipo+"','"+nombreProyecto+"','"+ nombreEncargado+"','"+ nombreInstitucion+"','"+estudiantes+"','"+(fecha.getYear()+1900)+"/"+fecha.getMonth()+"/"+fecha.getDay()+"','"+cobertura+"','"+temas+"','"+detalle+"','"+imagen+"')";
         try {
             m.getSentencia().execute(agregarPasantia);
         } catch (SQLException ex) {
@@ -70,6 +79,24 @@ public class Pasantia implements Serializable {
     public void setNombreProyecto(String nombreProyecto) {
         this.nombreProyecto = nombreProyecto;
     }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public ArrayList<String> getB() {
+        return b;
+    }
+
+    public void setB(ArrayList<String> b) {
+        this.b = b;
+    }
+    
+    
 
     public String getNombreEncargado() {
         return nombreEncargado;

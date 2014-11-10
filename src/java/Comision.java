@@ -1,5 +1,7 @@
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,6 +15,7 @@ import org.diegorivas.db.MySQL;
 @RequestScoped
 public class Comision implements Serializable {
     private MySQL m;
+    private String tipo;
     private String persona;
     private Date fecha;
     private String nombre;
@@ -20,14 +23,19 @@ public class Comision implements Serializable {
     private String organizaciones;
     private String detalle;
     private String imagen;
+    String[] tipos= new String[] {"Comisión Interna UVG","Comisión Pública","Consorcio Público/Privado"}; 
+    private ArrayList<String> b = new ArrayList();
+
     
 
     public Comision() {
         m= new MySQL("localhost","root","",3306,"registro");
         m.conectar();
+        Collections.addAll(b, tipos);
     }
 
-    public Comision(String persona, Date fecha, String nombre, String temas, String organizaciones, String detalle, String imagen) {
+    public Comision(String tipo, String persona, Date fecha, String nombre, String temas, String organizaciones, String detalle, String imagen) {
+        this.tipo = tipo;
         this.persona = persona;
         this.fecha = fecha;
         this.nombre = nombre;
@@ -36,10 +44,12 @@ public class Comision implements Serializable {
         this.detalle = detalle;
         this.imagen = imagen;
     }
+
+   
     
     public void guardarComision(){
-        String agregarComision = "INSERT into comision (persona,fecha,nombre,temas,organizaciones,detalle,imagen) "
-            + "VALUES ('"+persona+"','"+(fecha.getYear()+1900)+"/"+fecha.getMonth()+"/"+fecha.getDay()+"','"+nombre+"','"+temas+"','"+organizaciones+"','"+detalle+"','"+imagen+"')";
+        String agregarComision = "INSERT into comision (tipo,persona,fecha,nombre,temas,organizaciones,detalle,imagen) "
+            + "VALUES ('"+tipo+"','"+persona+"','"+(fecha.getYear()+1900)+"/"+fecha.getMonth()+"/"+fecha.getDay()+"','"+nombre+"','"+temas+"','"+organizaciones+"','"+detalle+"','"+imagen+"')";
         try {
             m.getSentencia().execute(agregarComision);
         } catch (SQLException ex) {
@@ -63,6 +73,24 @@ public class Comision implements Serializable {
     public String getPersona() {
         return persona;
     }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public ArrayList<String> getB() {
+        return b;
+    }
+
+    public void setB(ArrayList<String> b) {
+        this.b = b;
+    }
+    
+    
 
     public void setPersona(String persona) {
         this.persona = persona;

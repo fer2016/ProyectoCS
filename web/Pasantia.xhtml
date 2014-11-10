@@ -1,12 +1,170 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title> Registro de Pasantia</title>
     </h:head>
-    <h:body>
-        Hello from Facelets
+    <h:body onload="#{login.redireccionarIndex()}">
+        
+        <h:form id="form" >
+            <p:menubar  >
+                <p:submenu  label="Inicio" >
+                    <p:submenu label="Actividad">
+                        <p:menuitem value="Registrar Actividad"  action="Start.xhtml"/>                
+                        <p:menuitem value="Visualizar Actividades"  action="Start3.xhtml" />  
+                    </p:submenu>
+                    
+                    <p:submenu label="Publicación">
+                        <p:menuitem value="Registrar Publicación" action="Start2.xhtml"/>                
+                        <p:menuitem value="Visualizar Publicaciones" action="Start4.xhtml" />  
+                    </p:submenu>
+                    
+                      <p:submenu label="Comision">
+                        <p:menuitem value="Registrar Comisión" action="Comision.xhtml"/>                
+                        <p:menuitem value="Visualizar Comisiones" action="Comision2.xhtml" />  
+                    </p:submenu>
+                    
+                    <p:submenu label="Conferencia">
+                        <p:menuitem value="Registrar Conferencia" action="Conferencia.xhtml"/>                
+                        <p:menuitem value="Visualizar conferencias" action="Conferencia2.xhtml" />  
+                    </p:submenu>
+                    
+                    <p:submenu label="Convenio">
+                        <p:menuitem value="Registrar convenio" action="Convenio.xhtml"/>                
+                        <p:menuitem value="Visualizar convenios" action="Convenio2.xhtml" />  
+                    </p:submenu>
+                    
+                    <p:submenu label="Educacion Continua">
+                        <p:menuitem value="Registrar Educación Continua" action="EducacionContinua.xhtml"/>                
+                        <p:menuitem value="Visualizar educacion continua" action="EducacionContinua2.xhtml" />  
+                    </p:submenu>
+                    
+                    <p:submenu label="Eventos">
+                        <p:menuitem value="Registrar evento" action="Eventos.xhtml" />                
+                        <p:menuitem value="Visualizar eventos" action="Eventos2.xhtml" />  
+                    </p:submenu>
+                    
+                    <p:submenu label="Extension">
+                        <p:menuitem value="Registrar extension"  action="Extension.xhtml"/>                
+                        <p:menuitem value="Visualizar extension" action="Extension2.xhtml" />  
+                    </p:submenu>
+                    
+                      <p:submenu label="Innovacion">
+                        <p:menuitem value="Registrar innovacion" action="Innovacion.xhtml"/>                
+                        <p:menuitem value="Visualizar innovaciones" action="Innovacion2.xhtml" />  
+                    </p:submenu>
+                    
+                    
+                      <p:submenu label="Intercambio">
+                          <p:menuitem value="Registrar intercambio"  action="Intercambio.xhtml"/>                
+                        <p:menuitem value="Visualizar intercambios" action="Intercambio2.xhtml" />  
+                    </p:submenu>
+                    
+                    
+                      <p:submenu label="Invitado">
+                          <p:menuitem value="Registrar invitado" action="Invitado.xhtml" />                
+                        <p:menuitem value="Visualizar invitados" action="Invitado2.xhtml" />  
+                    </p:submenu>
+                    
+                      <p:submenu label="Pasantia">
+                        <p:menuitem value="Registrar Pasantía" />                
+                        <p:menuitem value="Visualizar Pasantías" action="Pasantia2.xhtml" />  
+                    </p:submenu>
+                    
+                      <p:submenu label="Premio">
+                          <p:menuitem value="Registrar Premio" action="Premio.xhtml" />                
+                        <p:menuitem value="Visualizar Premios" action="Premio2.xhtml" />  
+                    </p:submenu>
+                    
+                </p:submenu>
+                       
+                <p:submenu  label="Ayuda">
+                    <p:menuitem value="Información" action="Start5.xhtml"/>
+                
+                    <p:menuitem value="Crear usuario"/>  
+                    
+                </p:submenu>
+                
+                <p:submenu  label="UVG">
+                    <p:menuitem value="Página UVG" url="http://www.uvg.edu.gt"  />                  
+                </p:submenu>
+                
+                   <p:submenu  label="Gestión de Usuarios">
+                    <p:menuitem value="Crear usuarios" action="Start51.xhtml" />                  
+                </p:submenu>
+                
+                <p:submenu label="Salir">
+                    
+                    <p:menuitem  value="Logout" actionListener="#{login.logout()}"  />
+                </p:submenu>
+                            
+            </p:menubar> 
+        </h:form>
+        <h:form enctype="multipart/form-data">  
+              <p:tabView effect="pulsate"  effectDuration="normal"  style=" background-color:  olivedrab "  >
+                  <p:tab id="pasantia" title="Trabajo de Campo, Pasantía y Práctica Profesional"  >
+                      <p:panel header="Trabajo de Campo, Pasantía y Práctica Profesional"  >
+                          <p:growl id="growl" showDetail="true"  sticky="true" />  
+                          <h:panelGrid  columns="2" >
+                                    
+                              
+                                <p:outputLabel for="tipo" value="Tipo: "  />
+                                <p:selectOneMenu id="tipo" value="#{pasantia.tipo}" required="true"   requiredMessage="Ingrese tipo"
+                                              style="width:150px"   >
+                               
+                                <f:selectItem itemLabel="Tipo" itemValue="" noSelectionOption="true"     />
+                                <f:selectItems value="#{pasantia.b}"   />
+                            </p:selectOneMenu>
+                              
+                               <h:outputText value="Nombre del Proyecto:" />
+                               <p:inputText value="#{pasantia.nombreProyecto}"  required="true"  requiredMessage="Ingrese nombre"  /> 
+                               
+                            
+                                 
+                               <h:outputText value="Nombre del Encargado: " />
+                               <p:inputText value="#{pasantia.nombreEncargado}"  required="true"  requiredMessage="Ingrese encargado"  /> 
+                            
+                            
+                               <h:outputText value="Nombre de la institución involucrada: " />
+                               <p:inputText value="#{pasantia.nombreInstitucion}"  required="true"  requiredMessage="Ingrese institucion"  />
+                               
+                               <h:outputText value="Listado de Estudiantes Participantes: " />
+                               <p:inputText value="#{pasantia.estudiantes}"  required="true"  requiredMessage="Ingrese estudiantes"  />
+                               
+                                  <h:outputText value="Fecha: " />
+                                  <p:calendar   value="#{pasantia.fecha}"  effect="fold" required="true"  requiredMessage="Ingrese fecha"  ></p:calendar>
+                               
+                                   
+                               <h:outputText value="Cobertura geográfica del proyecto: " />
+                               <p:inputText value="#{pasantia.cobertura}"  required="true"  requiredMessage="Ingrese cobertura"  /> 
+                               
+                                   
+                               <h:outputText value="Temas Cubiertos: " />
+                               <p:inputText value="#{pasantia.temas}"  required="true"  requiredMessage="Ingrese temas"  /> 
+                               
+                                   
+                              <h:outputText value="Detalle de Invitado: " style=" "   />
+                              <p:inputTextarea value="#{pasantia.detalle}" style="width: 184px"  autoResize="false"   required="true"  requiredMessage="Ingrese detalle" />
+
+                              <h:outputText value="Adjuntar Imagen :"   />
+                              <p:fileUpload   disabled="false" auto="true"  mode="advanced"  dragDropSupport="true" multiple="true" 
+                                              allowTypes="/(\.|\/)(gif|jpg|png)$/" fileUploadListener="#{actividad.handleFile}"></p:fileUpload>
+                                                        
+               
+                          </h:panelGrid>
+                          
+                          <p:commandButton value="Guardar" title="Guardar" icon="ui-icon-check"  ajax="false"
+                                           action ="#{pasantia.guardarPasantia()}"  update="growl"  actionListener="#{pasantia.showMessage()}">
+                         
+                          </p:commandButton>
+                      </p:panel>
+                      
+                  </p:tab>              
+              </p:tabView>       
+          </h:form>                       
     </h:body>
 </html>
 

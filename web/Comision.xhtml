@@ -38,8 +38,8 @@
                     </p:submenu>
                     
                     <p:submenu label="Educacion Continua">
-                        <p:menuitem value="Registrar Educación Continua" action="Educacion.xhtml"/>                
-                        <p:menuitem value="Visualizar educacion continua" action="Educacion2.xhtml" />  
+                        <p:menuitem value="Registrar Educación Continua" action="EducacionContinua.xhtml"/>                
+                        <p:menuitem value="Visualizar educacion continua" action="EducacionContinua2.xhtml" />  
                     </p:submenu>
                     
                     <p:submenu label="Eventos">
@@ -105,27 +105,35 @@
         </h:form>
         <h:form enctype="multipart/form-data">  
               <p:tabView effect="pulsate"  effectDuration="normal"  style=" background-color:  olivedrab "  >
-                  <p:tab id="comision" title="Comision"  >
-                      <p:panel header="Ingreso Comision"  >
+                  <p:tab id="comision" title="Participación en Comisiones y Representaciones UVG"  >
+                      <p:panel header="Ingreso Participación y Comisión"  >
                           <p:growl id="growl" showDetail="true"  sticky="true" />  
                           <h:panelGrid  columns="2" >
+                              
+                                <p:outputLabel for="tipo" value="Tipo: "  />
+                             <p:selectOneMenu id="tipo" value="#{comision.tipo}" required="true"   requiredMessage="Ingrese tipo"
+                                              style="width:150px"   >
+                               
+                                <f:selectItem itemLabel="Tipo" itemValue="" noSelectionOption="true"     />
+                                <f:selectItems value="#{comision.b}"   />
+                            </p:selectOneMenu>
                             
-                              <h:outputText value="Persona: " />
+                              <h:outputText value="Persona Comisionada Representante: " />
                               <p:inputText value="#{comision.persona}"  required="true"  requiredMessage="Ingrese persona"  /> 
                               
-                              <h:outputText value="Fecha: " />
+                              <h:outputText value="Fecha de Vigencia: " />
                               <p:calendar   value="#{comision.fecha}"  effect="fold" required="true"  requiredMessage="Ingrese fecha"  ></p:calendar>
 
-                              <h:outputText value="Nombre: " />
+                              <h:outputText value="Nombre de la comisión/representación: " />
                               <p:inputText value="#{comision.nombre}"  required="true"  requiredMessage="Ingrese nombre"  />
                               
-                               <h:outputText value="Temas: " />
+                               <h:outputText value="Temas tratados/abordados: " />
                                <p:inputText value="#{comision.temas}"  required="true"  requiredMessage="Ingrese temas"  />
                               
-                               <h:outputText value="Organizaciones: " />
+                               <h:outputText value="Organizaciones involucradas: " />
                                <p:inputText value="#{comision.organizaciones}"  required="true"  requiredMessage="Ingrese organizaciones"  />
                                                    
-                              <h:outputText value="Detalle de la Actividad: " style=" "   />
+                              <h:outputText value="Detalle: " style=" "   />
                               <p:inputTextarea value="#{comision.detalle}" style="width: 184px"  autoResize="false"   required="true"  requiredMessage="Ingrese detalle" />
 
                               <h:outputText value="Adjuntar Imagen :"   />
